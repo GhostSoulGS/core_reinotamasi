@@ -1,10 +1,15 @@
-// 1. 定義房子的構造 (HTML 結構)
-const htmlStructure = `
+// 讓 JS 自動生成 HTML 結構
+function createHTMLStructure() {
+    const wrapper = document.querySelector('.main-wrapper');
+    if (!wrapper) return; // 如果沒找到空地就不執行
+
+    wrapper.innerHTML = `
 <div class="main-wrapper">
     <div id="avatarTooltip" class="custom-tooltip"></div>
     <a href="#" target="_blank" class="avatar-link">
         <img src="" class="avatar" alt="Author">
     </a>
+    
     <div class="carousel-container" id="carousel">
         <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
         <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
@@ -13,21 +18,18 @@ const htmlStructure = `
             <div id="progressBar" class="progress-bar"></div>
         </div>
     </div>
+
     <div class="text-area" id="textArea">
         <div id="textLine1" class="line-1"></div>
         <div id="textLine2" class="line-2"></div>
     </div>
+
     <div id="editOverlay" class="edit-overlay">
         <div id="editContent" class="edit-content" contenteditable="true"></div>
         <div class="close-edit" onclick="toggleEdit(false)">x</div>
     </div>
 </div>
 `;
-
-// 2. 立即注入 HTML (這行一定要在最前面)
-const appContainer = document.getElementById('carousel-app');
-if (appContainer) {
-    appContainer.innerHTML = htmlStructure;
 }
 
 //---------------------------------------------------
@@ -59,28 +61,18 @@ for (let i = 3; i < allData.length; i += 4) {
 
     const autoPlayDelay = 2000;
 
-let track, progressBar, container, textArea, textLine1, textLine2;
-
+    const track = document.getElementById('carouselTrack');
+    const progressBar = document.getElementById('progressBar');
+    const container = document.getElementById('carousel');
+    
     let currentIndex = 0;
     let timer = null;
     let touchStartX = 0;
     let isMouseInside = false; // 紀錄滑鼠是否在區域內
     let isEditing = false;
 
-
-
 function init() {
-    
-    // 【重要】房子蓋好了，現在才抓得到這些元素
-    track = document.getElementById('carouselTrack');
-    progressBar = document.getElementById('progressBar');
-    container = document.getElementById('carousel');
-    textArea = document.getElementById('textArea');
-    textLine1 = document.getElementById('textLine1');
-    textLine2 = document.getElementById('textLine2');
-    
-        renderStructure(); // <-- 先執行這行！
-    
+    createHTMLStructure();
     // 改為讀取 slideData (物件陣列)
         // --- 新增：從解析好的資料更新大頭貼 ---
     const avatarImg = document.querySelector('.avatar');
@@ -97,11 +89,8 @@ function init() {
         tooltip.innerText = avatarTitle; // 將第一行的文字塞進去
     }
     // 綁定提示框顯示/隱藏事件 (這部分建議也寫在 init 裡)
-    // 重新綁定提示框
-    if (avatarImg && tooltip) {
-        avatarImg.onmouseenter = () => tooltip.classList.add('show');
-        avatarImg.onmouseleave = () => tooltip.classList.remove('show');
-    }
+    avatarImg.onmouseenter = () => tooltip.classList.add('show');
+    avatarImg.onmouseleave = () => tooltip.classList.remove('show');
 
 slideData.forEach((item) => {
     // 1. 建立超連結標籤
