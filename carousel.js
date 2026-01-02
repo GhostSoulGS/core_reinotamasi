@@ -1,3 +1,44 @@
+// 1. 定義 HTML 結構字串 (這就是你原本在 Google Sites 裡那一大坨 div)
+const htmlStructure = `
+<div class="main-wrapper">
+    <div id="avatarTooltip" class="custom-tooltip"></div>
+    <a href="#" target="_blank" class="avatar-link">
+        <img src="" class="avatar" alt="Author">
+    </a>
+    
+    <div class="carousel-container" id="carousel">
+        <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
+        <div id="carouselTrack" class="carousel-track"></div>
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div class="text-area" id="textArea">
+        <div id="textLine1" class="line-1"></div>
+        <div id="textLine2" class="line-2"></div>
+    </div>
+
+    <div id="editOverlay" class="edit-overlay">
+        <div id="editContent" class="edit-content" contenteditable="true"></div>
+        <div class="close-edit" onclick="toggleEdit(false)">x</div>
+    </div>
+</div>
+`;
+
+// 2. 建立一個函數來把這段 HTML 塞進 Google Sites 的容器裡
+function renderStructure() {
+    const app = document.getElementById('carousel-app');
+    if (app) {
+        app.innerHTML = htmlStructure;
+    } else {
+        console.error("找不到 #carousel-app 容器！");
+    }
+}
+
+//---------------------------------------------------
+
 // 1. 先用 trim() 去掉整段文字最開頭與最結尾的換行
 // 2. split('\n') 按行切割
 // 3. map(line => line.trim()) 只去掉每一行左右的空格，但保留「空行」本身
@@ -36,6 +77,7 @@ for (let i = 3; i < allData.length; i += 4) {
     let isEditing = false;
 
 function init() {
+    renderStructure(); // <-- 先執行這行！
     // 改為讀取 slideData (物件陣列)
         // --- 新增：從解析好的資料更新大頭貼 ---
     const avatarImg = document.querySelector('.avatar');
