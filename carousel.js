@@ -1,9 +1,5 @@
-// 讓 JS 自動生成 HTML 結構
-function createHTMLStructure() {
-    const wrapper = document.querySelector('.main-wrapper');
-    if (!wrapper) return; // 如果沒找到空地就不執行
-
-    wrapper.innerHTML = `
+// --- 1. 自動注入 HTML 結構 ---
+const htmlStructure = `
 <div class="main-wrapper">
     <div id="avatarTooltip" class="custom-tooltip"></div>
     <a href="#" target="_blank" class="avatar-link">
@@ -30,7 +26,9 @@ function createHTMLStructure() {
     </div>
 </div>
 `;
-}
+
+// 把這段 HTML 塞進網頁中 ID 為 "carousel-app" 的地方
+document.getElementById('carousel-app').innerHTML = htmlStructure;
 
 //---------------------------------------------------
 
