@@ -70,7 +70,6 @@ let track, progressBar, container, textArea, textLine1, textLine2;
 
 
 function init() {
-    renderStructure(); // <-- 先執行這行！
     
     // 【重要】房子蓋好了，現在才抓得到這些元素
     track = document.getElementById('carouselTrack');
@@ -79,6 +78,8 @@ function init() {
     textArea = document.getElementById('textArea');
     textLine1 = document.getElementById('textLine1');
     textLine2 = document.getElementById('textLine2');
+    
+        renderStructure(); // <-- 先執行這行！
     
     // 改為讀取 slideData (物件陣列)
         // --- 新增：從解析好的資料更新大頭貼 ---
