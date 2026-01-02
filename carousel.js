@@ -24,9 +24,11 @@ const htmlStructure = `
 </div>
 `;
 
-// 2. 找到 Google Sites 留給我們的「空位」，並把房子蓋進去
-// 我們約定好空位 ID 叫做 "carousel-app"
-document.getElementById('carousel-app').innerHTML = htmlStructure;
+// 2. 立即注入 HTML (這行一定要在最前面)
+const appContainer = document.getElementById('carousel-app');
+if (appContainer) {
+    appContainer.innerHTML = htmlStructure;
+}
 
 //---------------------------------------------------
 
@@ -57,18 +59,27 @@ for (let i = 3; i < allData.length; i += 4) {
 
     const autoPlayDelay = 2000;
 
-    const track = document.getElementById('carouselTrack');
-    const progressBar = document.getElementById('progressBar');
-    const container = document.getElementById('carousel');
-    
+let track, progressBar, container, textArea, textLine1, textLine2;
+
     let currentIndex = 0;
     let timer = null;
     let touchStartX = 0;
     let isMouseInside = false; // 紀錄滑鼠是否在區域內
     let isEditing = false;
 
+
+
 function init() {
     renderStructure(); // <-- 先執行這行！
+    
+    // 【重要】房子蓋好了，現在才抓得到這些元素
+    track = document.getElementById('carouselTrack');
+    progressBar = document.getElementById('progressBar');
+    container = document.getElementById('carousel');
+    textArea = document.getElementById('textArea');
+    textLine1 = document.getElementById('textLine1');
+    textLine2 = document.getElementById('textLine2');
+    
     // 改為讀取 slideData (物件陣列)
         // --- 新增：從解析好的資料更新大頭貼 ---
     const avatarImg = document.querySelector('.avatar');
@@ -85,8 +96,11 @@ function init() {
         tooltip.innerText = avatarTitle; // 將第一行的文字塞進去
     }
     // 綁定提示框顯示/隱藏事件 (這部分建議也寫在 init 裡)
-    avatarImg.onmouseenter = () => tooltip.classList.add('show');
-    avatarImg.onmouseleave = () => tooltip.classList.remove('show');
+    // 重新綁定提示框
+    if (avatarImg && tooltip) {
+        avatarImg.onmouseenter = () => tooltip.classList.add('show');
+        avatarImg.onmouseleave = () => tooltip.classList.remove('show');
+    }
 
 slideData.forEach((item) => {
     // 1. 建立超連結標籤
