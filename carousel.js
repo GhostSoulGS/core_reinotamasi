@@ -1,11 +1,10 @@
-// --- 1. 自動注入 HTML 結構 ---
+// 1. 定義房子的構造 (HTML 結構)
 const htmlStructure = `
 <div class="main-wrapper">
     <div id="avatarTooltip" class="custom-tooltip"></div>
     <a href="#" target="_blank" class="avatar-link">
         <img src="" class="avatar" alt="Author">
     </a>
-    
     <div class="carousel-container" id="carousel">
         <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
         <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
@@ -14,12 +13,10 @@ const htmlStructure = `
             <div id="progressBar" class="progress-bar"></div>
         </div>
     </div>
-
     <div class="text-area" id="textArea">
         <div id="textLine1" class="line-1"></div>
         <div id="textLine2" class="line-2"></div>
     </div>
-
     <div id="editOverlay" class="edit-overlay">
         <div id="editContent" class="edit-content" contenteditable="true"></div>
         <div class="close-edit" onclick="toggleEdit(false)">x</div>
@@ -27,7 +24,8 @@ const htmlStructure = `
 </div>
 `;
 
-// 把這段 HTML 塞進網頁中 ID 為 "carousel-app" 的地方
+// 2. 找到 Google Sites 留給我們的「空位」，並把房子蓋進去
+// 我們約定好空位 ID 叫做 "carousel-app"
 document.getElementById('carousel-app').innerHTML = htmlStructure;
 
 //---------------------------------------------------
@@ -70,7 +68,7 @@ for (let i = 3; i < allData.length; i += 4) {
     let isEditing = false;
 
 function init() {
-    createHTMLStructure();
+    renderStructure(); // <-- 先執行這行！
     // 改為讀取 slideData (物件陣列)
         // --- 新增：從解析好的資料更新大頭貼 ---
     const avatarImg = document.querySelector('.avatar');
