@@ -8,7 +8,7 @@
     --font-size-sub: 12px;
 }
 
-        body { margin: 0; font-family: sans-serif; background: transparent; }
+        body { margin: 0; font-family: sans-serif; background: transparent; overflow-x: hidden; }
 
         /* 輪播圖外框 (方框) */
         .carousel-container {
@@ -139,6 +139,7 @@
     margin-top: 9px;   /* 跟圖片框保持一點距離 */
     padding: 0 10px;    /* 左右留白 */
     min-height: 40px;  /* 固定高度防止文字切換時畫面抖動 */
+    overflow: hidden; /* <--- 加入這一行，切掉 line-2 那凸出的 10% */
 }
 /* 置中樣式 */
 .text-area.align-center { text-align: center; }
