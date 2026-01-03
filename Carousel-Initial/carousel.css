@@ -8,6 +8,10 @@
     --font-size-sub: 12px;
 }
 
+* {
+    box-sizing: border-box;
+}
+
         body { margin: 0; font-family: sans-serif; background: transparent; overflow-x: hidden; }
 
         /* 輪播圖外框 (方框) */
@@ -224,7 +228,7 @@
     bottom: 0;
     left: 80px; /* 留一點邊距 */
     right: 0px;
-    top: 125px; /* 這裡要根據你圖片的高度微調，讓它蓋在文字區上 */
+    top: 74%; /* 這裡要根據你圖片的高度微調，讓它蓋在文字區上 */
     border: 0px solid rgba(66, 66, 66, 0.8); /* 白色半透明邊框 */
     background: rgba(0, 0, 0, 0); /* 稍微帶點暗色背景，不然白色字在淺色圖上看不見 */
     z-index: 300;
