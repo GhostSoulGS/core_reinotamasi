@@ -180,6 +180,7 @@ function moveSlide(step) { goToSlide(currentIndex + step); }
 function stopTimer() { clearInterval(timer); timer = null; }
 
 function startTimer() {
+    if (slideData.length <= 1) return;
     if (isEditing || isMouseInside) return;
     if (timer) stopTimer();
     const now = Date.now();
@@ -194,6 +195,7 @@ function startTimer() {
 }
 
 function setupTouch() {
+    if (slideData.length <= 1) return;
     container.addEventListener('touchstart', e => {
         touchStartX = e.changedTouches[0].screenX;
         stopTimer();
